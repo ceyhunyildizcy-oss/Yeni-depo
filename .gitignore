@@ -1,0 +1,16 @@
+node_modules/
+.next/
+out/
+build/
+
+# API anahtarları — asla depoya girmemeli
+.env
+.env.local
+.env*.local
+
+# Yerel veri (sohbet geçmişi, istatistikler)
+data/db.json
+
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
