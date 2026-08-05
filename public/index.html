@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tek Tik Paylas</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Tek Tik Paylas</h1>
+      <form method="post" action="/auth/logout"><button class="ince">Cikis</button></form>
+    </header>
+
+    <main>
+      <div id="uyari" class="uyari" hidden></div>
+
+      <section class="kart">
+        <h2>1 · Hesaplar</h2>
+        <div class="hesaplar">
+          <div class="hesap" id="hesap-instagram">
+            <span class="ad">Instagram</span>
+            <span class="durum soluk">kontrol ediliyor…</span>
+            <a class="dugme" href="/auth/instagram/start">Bagla</a>
+          </div>
+          <div class="hesap" id="hesap-tiktok">
+            <span class="ad">TikTok</span>
+            <span class="durum soluk">kontrol ediliyor…</span>
+            <a class="dugme" href="/auth/tiktok/start">Bagla</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="kart">
+        <h2>2 · Video</h2>
+        <form id="form">
+          <label class="dosya" id="dosya-alan">
+            <input type="file" id="video" accept="video/*" required hidden />
+            <span id="dosya-adi">Flick'ten cikan videoyu buraya birak ya da sec</span>
+          </label>
+
+          <textarea id="caption" rows="4" placeholder="Aciklama / basliklar #etiket"></textarea>
+
+          <div class="satir">
+            <label><input type="checkbox" id="p-instagram" checked /> Instagram Reels</label>
+            <label><input type="checkbox" id="p-tiktok" checked /> TikTok</label>
+          </div>
+
+          <label class="alan">
+            TikTok gizliligi
+            <select id="tiktokPrivacy">
+              <option value="SELF_ONLY">Sadece ben (test icin)</option>
+            </select>
+          </label>
+
+          <button type="submit" id="gonder">Ikisine birden yukle</button>
+        </form>
+      </section>
+
+      <section class="kart">
+        <h2>3 · Gecmis</h2>
+        <div id="isler" class="isler"><p class="soluk">Henuz yukleme yok.</p></div>
+      </section>
+    </main>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>

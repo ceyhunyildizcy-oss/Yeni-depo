@@ -1,0 +1,20 @@
+{
+  "name": "tek-tik-paylas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Flick'ten cikan videoyu tek tikla Instagram Reels ve TikTok'a yukleyen mini panel",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}

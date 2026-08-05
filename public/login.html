@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Giris — Tek Tik Paylas</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body class="orta">
+    <form class="kart dar" method="post" action="/auth/login">
+      <h1>Tek Tik Paylas</h1>
+      <p class="soluk">Panel parolasini gir.</p>
+      <input type="password" name="password" placeholder="Parola" autofocus required />
+      <button type="submit">Giris</button>
+      <p class="hata" id="hata" hidden>Parola yanlis.</p>
+    </form>
+    <script>
+      if (new URLSearchParams(location.search).has('hata')) {
+        document.getElementById('hata').hidden = false;
+      }
+    </script>
+  </body>
+</html>
