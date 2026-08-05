@@ -1,0 +1,2 @@
+# Yeni-depo
+Genel depo
