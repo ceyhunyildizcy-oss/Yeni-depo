@@ -1,7 +1,16 @@
 # GitHub Kaynak Haritası
 
-**Son doğrulama:** 24 Ağustos 2026  
-**Kapsam:** Yapay zekâ, ajanlar, Python, veri bilimi, web/mobil geliştirme, güvenlik, oyun, trading/quant ve web/uygulama arayüz tasarımı.
+**Belge güncelleme tarihi:** 2026-08-24  
+**Kapsam:** Yapay zekâ, ajanlar, Python, veri bilimi, web/mobil geliştirme, güvenlik, oyun, trading/quant ve web/uygulama arayüz tasarımı.  
+**GitHub yıldız listelerinin durumu:** 14 liste oluşturuldu. Haritadaki 93 benzersiz kaynak 01–13 numaralı listelerde sınıflandırıldı; küratörlü `14-Trending-Weekly` listesi şu anda boş.
+
+Bu harita 15 konu bölümü içinde 93 benzersiz açık kaynak depo bağlantısı içerir. Belge güncelleme tarihi, her projenin o tarihte yeniden doğrulandığı anlamına gelmez; kullanmadan önce projenin güncel bakım, lisans ve güvenlik durumunu kontrol edin.
+
+## Hızlı gezinme
+
+- **Temel alanlar:** [01 AI/LLM](#01--ai-llm-ve-makine-öğrenmesi) · [02 ajan framework’leri](#02--ajan-frameworkleri) · [03 kodlama/tarayıcı ajanları](#03--kodlama-ve-tarayıcı-ajanları) · [04 Python/veri/API](#04--python-api-ve-veri-bilimi) · [05 web/mobil](#05--web-ve-mobil-geliştirme) · [06 güvenlik/oyun/öğrenme](#06--güvenlik-oyun-ve-temel-öğrenme) · [07 trading/quant](#07--trading-ve-quant)
+- **Tasarım ve ürün arayüzü:** [08 prototipleme](#08--tasarım-ve-prototipleme) · [09 headless UI](#09--headless-bileşenler-ve-erişilebilir-ui-temelleri) · [10 görsel sistemler](#10--hazır-görsel-tasarım-sistemleri) · [11 kalite](#11--tasarım-sistemi-mühendisliği-ve-kalite) · [12 ikon/animasyon](#12--ikon-animasyon-ve-mikro-etkileşim) · [13 mobil UI](#13--mobil-uygulama-arayüzleri) · [14 dashboard](#14--dashboard-veri-görselleştirme-ve-trading-arayüzü) · [15 ajan UI](#15--ajan-ve-generative-ui-arayüzleri)
+- **Uygulama:** [Hedefe göre teknoloji kombinasyonları](#hedeflere-göre-bağlı-teknoloji-kombinasyonları) · [Oluşturulan yıldız listeleri](#oluşturulan-github-yıldız-listeleri) · [Yıldızlanan başlangıç seçkisi](#yıldızlanan-başlangıç-tasarım-paketi) · [Kullanım, lisans ve güvenlik](#kullanım-lisans-ve-güvenlik-notları)
 
 Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: resmi veya güvenilir proje sahipliği, aktif geliştirme, anlaşılır lisans, dokümantasyon, erişilebilirlik, üretim değeri ve öğrenme faydasıdır.
 
@@ -9,7 +18,9 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 ---
 
-## 01 — AI, LLM ve makine öğrenmesi
+## Temel kaynaklar
+
+### 01 — AI, LLM ve makine öğrenmesi
 
 | Depo | Kullanım |
 |---|---|
@@ -19,7 +30,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [tensorflow/tensorflow](https://github.com/tensorflow/tensorflow) | Makine öğrenmesi ve üretim sistemleri |
 | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | Başlangıç düzeyi AI müfredatı |
 
-## 02 — Ajan framework’leri
+### 02 — Ajan framework’leri
 
 | Depo | Kullanım |
 |---|---|
@@ -33,7 +44,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [livekit/agents](https://github.com/livekit/agents) | Gerçek zamanlı sesli ve çok modlu ajanlar |
 | [letta-ai/letta-code](https://github.com/letta-ai/letta-code) | Hafızalı ve uzun süreli çalışan ajanlar |
 
-## 03 — Kodlama ve tarayıcı ajanları
+### 03 — Kodlama ve tarayıcı ajanları
 
 | Depo | Kullanım |
 |---|---|
@@ -44,7 +55,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [anomalyco/opencode](https://github.com/anomalyco/opencode) | Açık kaynak terminal kodlama ajanı |
 | [browser-use/browser-use](https://github.com/browser-use/browser-use) | Web sayfası, form ve tarayıcı otomasyonu |
 
-## 04 — Python, API ve veri bilimi
+### 04 — Python, API ve veri bilimi
 
 | Depo | Kullanım |
 |---|---|
@@ -57,7 +68,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [apache/airflow](https://github.com/apache/airflow) | Veri iş akışlarını zamanlama ve izleme |
 | [public-apis/public-apis](https://github.com/public-apis/public-apis) | Açık API kataloğu |
 
-## 05 — Web ve mobil geliştirme
+### 05 — Web ve mobil geliştirme
 
 | Depo | Kullanım |
 |---|---|
@@ -69,7 +80,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [react/react-native](https://github.com/react/react-native) | React ile Android ve iOS geliştirme |
 | [android/nowinandroid](https://github.com/android/nowinandroid) | Kotlin ve Jetpack Compose referans mimarisi |
 
-## 06 — Güvenlik, oyun ve temel öğrenme
+### 06 — Güvenlik, oyun ve temel öğrenme
 
 | Depo | Kullanım |
 |---|---|
@@ -83,7 +94,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | Sistem tasarımı |
 | [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) | Algoritma ve mülakat hazırlığı |
 
-## 07 — Trading ve quant
+### 07 — Trading ve quant
 
 | Depo | Kullanım |
 |---|---|
@@ -99,9 +110,9 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 ---
 
-# Web ve uygulama arayüz tasarımı
+## Web ve uygulama arayüz tasarımı
 
-## 08 — Tasarım ve prototipleme
+### 08 — Tasarım ve prototipleme
 
 | Depo | En uygun kullanım |
 |---|---|
@@ -110,7 +121,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 **Akış:** kullanıcı problemi → kullanıcı akışı → wireframe → Penpot prototipi → design token’ları → Storybook → uygulama.
 
-## 09 — Headless bileşenler ve erişilebilir UI temelleri
+### 09 — Headless bileşenler ve erişilebilir UI temelleri
 
 | Depo | En uygun kullanım |
 |---|---|
@@ -123,7 +134,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 **Kural:** Bir projede tek ana primitive katmanı seç; Base UI, Radix, Ark UI ve React Aria’yı rastgele karıştırma.
 
-## 10 — Hazır görsel tasarım sistemleri
+### 10 — Hazır görsel tasarım sistemleri
 
 | Depo | En uygun kullanım |
 |---|---|
@@ -142,7 +153,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 - Hızlı React MVP’si: `Mantine`
 - Microsoft ekosistemi: `Fluent UI`
 
-## 11 — Tasarım sistemi mühendisliği ve kalite
+### 11 — Tasarım sistemi mühendisliği ve kalite
 
 | Depo | Rol |
 |---|---|
@@ -153,7 +164,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 **Kalite kapısı:** Storybook build → axe-core → Playwright → performans kontrolü → insan kod incelemesi.
 
-## 12 — İkon, animasyon ve mikro etkileşim
+### 12 — İkon, animasyon ve mikro etkileşim
 
 | Depo | Rol |
 |---|---|
@@ -162,7 +173,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 | [motiondivision/motion](https://github.com/motiondivision/motion) | React ve web animasyonları |
 | [airbnb/lottie-web](https://github.com/airbnb/lottie-web) | Vektör animasyonlarını web’de çalıştırma |
 
-## 13 — Mobil uygulama arayüzleri
+### 13 — Mobil uygulama arayüzleri
 
 | Depo | En uygun kullanım |
 |---|---|
@@ -175,7 +186,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 **Mobil kombinasyon:** `Expo/React Native + React Native Reusables veya Tamagui + NativeWind + Reanimated + Bottom Sheet + Lucide`.
 
-## 14 — Dashboard, veri görselleştirme ve trading arayüzü
+### 14 — Dashboard, veri görselleştirme ve trading arayüzü
 
 | Depo | En uygun kullanım |
 |---|---|
@@ -195,7 +206,7 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 - React Grid Layout: kullanıcıya özel panel düzeni
 - Backtesting.py/LEAN/Freqtrade: araştırma ve paper-trading katmanı
 
-## 15 — Ajan ve Generative UI arayüzleri
+### 15 — Ajan ve Generative UI arayüzleri
 
 | Depo | Rol |
 |---|---|
@@ -210,52 +221,60 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 
 ---
 
-# Hedeflere göre bağlı teknoloji kombinasyonları
+## Hedeflere göre bağlı teknoloji kombinasyonları
 
-## Modern SaaS veya web uygulaması
+### Modern SaaS veya web uygulaması
 
 `Next.js + TypeScript + Tailwind CSS + shadcn/ui + Base UI/Radix + Storybook + axe-core + Playwright + Lucide + Motion`
 
-## Kurumsal yönetim uygulaması
+### Kurumsal yönetim uygulaması
 
 `React + MUI/Ant Design/Carbon + Storybook + Style Dictionary + TanStack Table + ECharts + Playwright`
 
-## AI ajan uygulaması
+### AI ajan uygulaması
 
 `Next.js + assistant-ui/CopilotKit + AG-UI + OpenAI Agents SDK/LangGraph/Microsoft Agent Framework + xyflow + PostgreSQL`
 
-## Trading araştırma paneli
+### Trading araştırma paneli
 
 `Next.js + shadcn/ui + Lightweight Charts + ECharts + TanStack Table + FastAPI + pandas + Backtesting.py/LEAN`
 
-## Çapraz platform mobil uygulama
+### Çapraz platform mobil uygulama
 
 `Expo + React Native + Tamagui veya React Native Reusables + NativeWind + Reanimated + Bottom Sheet`
 
-## Tasarımdan koda geçiş
+### Tasarımdan koda geçiş
 
 `Penpot → design token’ları → Style Dictionary → Storybook → web/mobil uygulama → axe-core + Playwright`
 
 ---
 
-# Önerilen GitHub yıldız listeleri
+## Oluşturulan GitHub yıldız listeleri
 
-1. `01-AI-LLM`
-2. `02-Agent-Frameworks`
-3. `03-Coding-Browser-Agents`
-4. `04-Python-Data-APIs`
-5. `05-Web-Mobile-Development`
-6. `06-Security-Game-Learning`
-7. `07-Trading-Quant`
-8. `08-Design-Prototyping`
-9. `09-Web-UI-Systems`
-10. `10-Mobile-UI`
-11. `11-Dashboard-Trading-UI`
-12. `12-Agent-Generative-UI`
-13. `13-Design-System-Quality`
-14. `14-Trending-Weekly`
+[Tüm yıldızları ve listeleri aç](https://github.com/stars/ceyhunyildizcy-oss). Liste numaraları, 08’den sonra kaynak haritasındaki bölüm numaralarıyla birebir ilerlemez; yakın tasarım alanları daha kullanışlı bir liste yapısı için birleştirilmiştir.
 
-# İlk yıldızlanacak tasarım paketi
+| Oluşturulan liste | Kaynak haritasındaki karşılığı | Bu belge güncellendiğindeki durum |
+|---|---|---|
+| [01-AI-LLM](https://github.com/stars/ceyhunyildizcy-oss/lists/01-ai-llm) | Bölüm 01 | 5 depo |
+| [02-Agent-Frameworks](https://github.com/stars/ceyhunyildizcy-oss/lists/02-agent-frameworks) | Bölüm 02 | 9 depo |
+| [03-Coding-Browser-Agents](https://github.com/stars/ceyhunyildizcy-oss/lists/03-coding-browser-agents) | Bölüm 03 | 6 depo |
+| [04-Python-Data-APIs](https://github.com/stars/ceyhunyildizcy-oss/lists/04-python-data-apis) | Bölüm 04 | 8 depo |
+| [05-Web-Mobile-Development](https://github.com/stars/ceyhunyildizcy-oss/lists/05-web-mobile-development) | Bölüm 05 | 7 depo |
+| [06-Security-Game-Learning](https://github.com/stars/ceyhunyildizcy-oss/lists/06-security-game-learning) | Bölüm 06 | 9 depo |
+| [07-Trading-Quant](https://github.com/stars/ceyhunyildizcy-oss/lists/07-trading-quant) | Bölüm 07 | 7 depo |
+| [08-Design-Prototyping](https://github.com/stars/ceyhunyildizcy-oss/lists/08-design-prototyping) | Bölüm 08 | 2 depo |
+| [09-Web-UI-Systems](https://github.com/stars/ceyhunyildizcy-oss/lists/09-web-ui-systems) | Bölümler 09, 10 ve 12 | 17 depo |
+| [10-Mobile-UI](https://github.com/stars/ceyhunyildizcy-oss/lists/10-mobile-ui) | Bölüm 13 | 6 depo |
+| [11-Dashboard-Trading-UI](https://github.com/stars/ceyhunyildizcy-oss/lists/11-dashboard-trading-ui) | Bölüm 14 | 7 depo |
+| [12-Agent-Generative-UI](https://github.com/stars/ceyhunyildizcy-oss/lists/12-agent-generative-ui) | Bölüm 15 | 6 depo |
+| [13-Design-System-Quality](https://github.com/stars/ceyhunyildizcy-oss/lists/13-design-system-quality) | Bölüm 11 | 4 depo |
+| [14-Trending-Weekly](https://github.com/stars/ceyhunyildizcy-oss/lists/14-trending-weekly) | Dönemsel, kaynak haritasından bağımsız seçki | Küratörlüdür; şu anda boş |
+
+`14-Trending-Weekly` otomatik doldurulmaz. Bir depo eklenmeden önce lisans, bakım durumu, ana depo olup olmadığı ve güvenlik riski yeniden değerlendirilir.
+
+## Yıldızlanan başlangıç tasarım paketi
+
+Aşağıdaki 22 depo ilk aşamada yıldızlanan tasarım seçkisidir. Sonraki aşamada haritadaki 93 benzersiz kaynağın tamamı 01–13 numaralı listelere dağıtılmıştır; kesin eşleme [`RESOURCES.csv`](./RESOURCES.csv) dosyasındadır.
 
 1. [penpot/penpot](https://github.com/penpot/penpot)
 2. [shadcn-ui/ui](https://github.com/shadcn-ui/ui)
@@ -280,7 +299,12 @@ Bu seçki yalnızca yıldız sayısına göre hazırlanmadı. Ana ölçütler: r
 21. [CopilotKit/CopilotKit](https://github.com/CopilotKit/CopilotKit)
 22. [ag-ui-protocol/ag-ui](https://github.com/ag-ui-protocol/ag-ui)
 
-# Uygulama ve güvenlik kuralları
+## Kullanım, lisans ve güvenlik notları
+
+- Bağlı projeler kendi güncel lisans, marka, API, model, veri ve kullanım şartlarına tabidir. Bir projeyi kullanmadan, dağıtmadan veya ticari ürüne eklemeden önce kaynak depodaki şartları ayrıca inceleyin.
+- Bir deponun bu haritada listelenmesi veya GitHub’da yıldızlanması; onay, sponsorluk, güvenlik sertifikası ya da sonuç garantisi anlamına gelmez.
+
+### Genel uygulama ve güvenlik kuralları
 
 - Bir üründe tek ana görsel bileşen sistemi ve tek ana headless primitive katmanı kullan.
 - Tasarım token’larını kod içine dağınık sabit değerler olarak gömme.
