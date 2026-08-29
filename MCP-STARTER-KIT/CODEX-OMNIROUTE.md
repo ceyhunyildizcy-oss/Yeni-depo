@@ -1,114 +1,103 @@
 # Codex + Rocket Fuel + OmniRoute
 
-Bu belge, iki opsiyonel entegrasyonu güvenli ve tekrar üretilebilir biçimde kullanmak için hazırlanmıştır:
+Bu belge, iki opsiyonel entegrasyonu güvenli biçimde kullanmak için hazırlanmıştır:
 
-1. `NulightJens/rocket-fuel-skill` — Claude Code içinde Codex'i ikinci ajan / uygulayıcı olarak kullanan üçüncü taraf skill.
-2. `diegosouzapw/OmniRoute` — Codex, Claude Code, Cursor ve diğer istemciler için AI gateway, model yönlendirme ve MCP/A2A katmanı.
+1. `NulightJens/rocket-fuel-skill` — Claude Code içinde OpenAI Codex'i ikinci ajan / uygulayıcı olarak kullanan üçüncü taraf skill/workflow.
+2. `diegosouzapw/OmniRoute` — Codex, Claude Code, Cursor, OpenCode, Cline ve benzeri istemciler için çok sağlayıcılı AI gateway; OpenAI-uyumlu API ile MCP/A2A yetenekleri sunar.
 
-Bu iki araç MCP Starter Kit'in çekirdek sunucularına zorla eklenmez. İhtiyaç olduğunda ayrı ayrı etkinleştirilir.
+Bu iki proje MCP Starter Kit'in çekirdek sunucularına otomatik olarak eklenmez. İhtiyaç olduğunda ayrı ayrı kurulur ve etkinleştirilir.
 
 ## 1. Rocket Fuel Skill
 
-Resmi depo: `https://github.com/NulightJens/rocket-fuel-skill`
+Kaynak depo: `https://github.com/NulightJens/rocket-fuel-skill`
 
-Amaç: Claude Code'u planlama / inceleme tarafında, OpenAI Codex'i ise uygulama ve doğrulama tarafında birlikte kullanmak.
+Projenin kendi akışı Claude tarafını planlama/inceleme, Codex tarafını uygulama ve doğrulama rolünde birlikte kullanır. MIT lisanslıdır.
 
-Gereksinimler:
+### Gereksinimler
 
 - Claude Code
 - OpenAI Codex CLI
 - Git
 
-Codex kurulumu:
+OpenAI'ın güncel resmi Codex CLI kurulum komutu:
 
 ```bash
-npm install -g @openai/codex@latest
-codex login
+npm i -g @openai/codex
 ```
 
-Linux/macOS için bu repodaki kurucu:
+Ardından Codex istemcisini açıp ekrandaki ChatGPT oturum açma adımlarını izleyin.
+
+Rocket Fuel'ın resmi kurulum biçimi:
 
 ```bash
-bash MCP-STARTER-KIT/install-rocket-fuel.sh
+git clone https://github.com/NulightJens/rocket-fuel-skill.git ~/rocket-fuel-skill
+mkdir -p ~/.claude/skills
+ln -s ~/rocket-fuel-skill/rocket-fuel ~/.claude/skills/rocket-fuel
 ```
 
-Windows PowerShell:
+Claude Code'u yeniden başlattıktan sonra skill kullanılabilir hale gelir.
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\MCP-STARTER-KIT\install-rocket-fuel.ps1
-```
-
-Kurucu, üçüncü taraf depoyu kullanıcı veri klasörüne klonlar ve `rocket-fuel` skill'ini `~/.claude/skills/rocket-fuel` konumuna bağlar/kopyalar. Var olan gerçek bir klasörü sessizce ezmez.
-
-> Güvenlik: Bu skill dosya, Git ve ajan komutlarıyla çalışabilir. Etkinleştirmeden önce `SKILL.md` ve ilgili komutları inceleyin. Üçüncü taraf talimatlarını körü körüne güvenilir kabul etmeyin.
+> Güvenlik: Üçüncü taraf bir agent skill'i dosya, Git ve komut çalıştırma davranışlarını yönlendirebilir. Etkinleştirmeden önce `rocket-fuel/SKILL.md` ve ilişkili dosyaları inceleyin. Var olan proje üzerinde kullanmadan önce temiz bir Git çalışma ağacı ve geri dönüş noktası oluşturun.
 
 ## 2. OmniRoute
 
-Resmi depo: `https://github.com/diegosouzapw/OmniRoute`
+Kaynak depo: `https://github.com/diegosouzapw/OmniRoute`
 
-OmniRoute; OpenAI-uyumlu bir gateway, sağlayıcı/model yönlendirme katmanı, fallback sistemi ve MCP/A2A sunucusu sağlar.
+OmniRoute; sağlayıcı/model yönlendirme, fallback, OpenAI-uyumlu API ve MCP/A2A özellikleri sunan MIT lisanslı bir AI gateway'dir.
 
-### Çalıştırma
+### Çalışma gereksinimi
 
-OmniRoute'un yayınlanmış npm sürümü için Node.js güvenli çalışma aralığı:
+Güncel `release/v3.8.51` kaynak ağacındaki `package.json` şu Node.js aralığını ister:
 
-- Node `22.22.2+` (22.x), veya
-- Node `24.x–26.x`
+- Node `>=22.22.2 <23`, veya
+- Node `>=24 <27`
 
-Node 24 LTS önerilir.
+Üretimde, projenin güncel README'sindeki yayımlanmış sürümü ve kurulum yöntemini doğrulayarak sürüm sabitlemek daha güvenlidir.
 
-Linux/macOS:
+### MCP erişimi
 
-```bash
-bash MCP-STARTER-KIT/omniroute-http.sh
-```
-
-Windows PowerShell:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\MCP-STARTER-KIT\omniroute-http.ps1
-```
-
-Bu wrapper'lar yayınlanmış `omniroute@3.8.49` sürümünü normal sunucu modunda başlatır ve MCP stdio yolunu kullanmaz. Varsayılan servis adresi:
-
-```text
-http://localhost:20128
-```
-
-### VS Code MCP — HTTP transport
-
-Örnek dosya: `/.vscode/mcp.omniroute.example.json`
-
-OmniRoute çalışırken MCP istemcisinde şu endpoint kullanılabilir:
+Güncel kaynak ağacında HTTP MCP route'u bulunur:
 
 ```text
 http://localhost:20128/api/mcp/stream
 ```
 
-Örnek dosya bilerek `.vscode/mcp.json` üzerine otomatik yazılmaz. Önce OmniRoute'u yerelde başlatın, sağlık durumunu kontrol edin, sonra ilgili sunucu bloğunu kendi MCP yapılandırmanıza taşıyın.
+OmniRoute'u önce kendi resmi kurulum adımlarıyla yerelde çalıştırın; ardından bu endpoint'i destekleyen MCP istemcinize ekleyin. Starter Kit, üçüncü taraf bir gateway'i otomatik başlatmaz ve mevcut `.mcp.json` dosyasını kendiliğinden değiştirmez.
 
-### Neden `omniroute --mcp` varsayılan değil?
+### Codex'i OmniRoute üzerinden kullanma
 
-29 Ağustos 2026 itibarıyla npm `latest` etiketi `3.8.49` sürümünü gösteriyor ve bu yayın için stdio MCP başlangıcında Node tabanlı istemcileri etkileyen açık/raporlanmış bir paketleme hatası bulunuyor. Ana HTTP sunucusu bu hatadan etkilenmiyor. Bu nedenle Starter Kit, daha güvenilir olan HTTP MCP transportunu örnekliyor.
+OmniRoute'un güncel Codex rehberi `~/.codex/config.toml` kullanır. API anahtarını yapılandırma dosyasına gömmek yerine ortam değişkeninde tutun.
 
-GitHub geliştirme dalı `release/v3.8.51` sürümüne ilerlemiş durumda. npm'de düzeltilmiş yeni sürüm yayımlandığında stdio yolu yeniden değerlendirilebilir.
+Örnek, model adını kendi OmniRoute kurulumunuza göre değiştirin:
 
-## Codex'i OmniRoute üzerinden kullanma
+```toml
+model = "<MODEL_ID>"
+model_provider = "omniroute"
 
-OmniRoute'un güncel kaynak ağacı, Codex için `~/.codex/config.toml` tabanlı OpenAI-compatible backend yapılandırmasını belgeliyor. API anahtarını TOML dosyasına gömmek yerine ortam değişkeninde tutun.
-
-Temel yerel endpoint:
-
-```text
-http://localhost:20128/v1
+[model_providers.omniroute]
+name = "OmniRoute"
+base_url = "http://localhost:20128/v1"
+env_key = "OMNIROUTE_API_KEY"
+requires_openai_auth = false
+wire_api = "responses"
 ```
 
-Önce OmniRoute'u çalıştırıp sağlayıcı/model bağlantılarını doğrulayın; daha sonra Codex provider profilini ekleyin. Model adları ve context limitleri hızlı değişebildiği için sabit model listesi bu repoya kopyalanmamıştır.
+Shell ortamında:
+
+```bash
+export OMNIROUTE_API_KEY="<YOUR_KEY>"
+```
+
+Anahtarı repoya commit etmeyin. Yerel kurulumunuz kimlik doğrulaması istemese bile yapılandırmayı uzak sunucuya taşımadan önce erişim kontrolü ekleyin.
 
 ## Güvenlik
 
 - `20128` portunu kimlik doğrulama olmadan internete açmayın.
-- API anahtarlarını `.mcp.json`, `.vscode/mcp*.json` veya Git'e commit etmeyin.
-- Uzak OmniRoute erişiminde scoped token kullanın.
-- Üçüncü taraf Claude/Codex skill'lerini etkinleştirmeden önce içeriklerini gözden geçirin.
-- Gateway üzerinden ücretsiz/abonelik sağlayıcısı kullanmak, ilgili sağlayıcının kullanım şartlarını ortadan kaldırmaz.
+- API anahtarlarını `.mcp.json`, `.vscode/mcp*.json`, `config.toml` veya Git geçmişine gömmeyin.
+- Uzak gateway erişiminde minimum yetkili/scoped token kullanın.
+- Üçüncü taraf agent skill'lerini etkinleştirmeden önce talimat ve scriptlerini inceleyin.
+- Sağlayıcıların ücretsiz/abonelik erişimini bir gateway üzerinden kullanmak, ilgili sağlayıcının kullanım şartlarını ortadan kaldırmaz.
+
+## Kaynak doğrulama notu
+
+Bu entegrasyonlar çekirdek MCP sunucularından ayrı tutulur. Böylece Context7, Playwright, Filesystem, Sequential Thinking, Git ve GitHub yapılandırmaları üçüncü taraf gateway veya agent skill değişikliklerinden etkilenmez.
