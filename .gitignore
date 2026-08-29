@@ -1,0 +1,12 @@
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# MCP local state / credentials
+.mcp-data/
+*.local
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

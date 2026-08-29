@@ -22,6 +22,7 @@ AI, ajanlar, yazılım geliştirme, trading ve web/mobil arayüz tasarımı içi
 
 ## Ana belgeler
 
+- [MCP Starter Kit](./MCP-STARTER-KIT/README.md): VS Code ve diğer MCP istemcileri için kullanıma hazır, güvenli başlangıç yapılandırması
 - [GitHub Kaynak Haritası](./GITHUB-KAYNAK-HARITASI.md): tüm kaynaklar, teknoloji kombinasyonları ve güvenlik kuralları
 - [Kullanım Rehberi](./KULLANIM-REHBERI.md): seçim, değerlendirme ve uygulama akışı
 - [Katkı Rehberi](./CONTRIBUTING.md): yeni kaynak önerme ve güncelleme ölçütleri
