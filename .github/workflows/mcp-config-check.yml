@@ -30,4 +30,6 @@ jobs:
           python -m json.tool .vscode/mcp.json >/dev/null
 
       - name: Validate shell syntax
-        run: bash -n MCP-STARTER-KIT/check-prereqs.sh
+        run: |
+          bash -n MCP-STARTER-KIT/check-prereqs.sh
+          bash -n MCP-STARTER-KIT/anydoc.sh

@@ -13,6 +13,30 @@ Bu klasör, depoyu MCP istemcileriyle hemen kullanabilmek için hazırlanmış g
 | Git | Repo durumu, diff ve Git işlemleri | `uvx` |
 | GitHub | GitHub API araçları | VS Code yapılandırmasında GitHub access token |
 
+## Ek ajan aracı: anydoc
+
+`anydoc`, bir MCP sunucusu değildir; MCP araçlarının yanında kullanılabilen Rust tabanlı bir doküman → Markdown CLI / Agent Skill'dir. Word, PowerPoint, Excel, OpenDocument, RTF, EPUB, CSV ve metin tabanlı PDF dosyalarını Markdown'a çevirmek için eklenmiştir.
+
+Hızlı kullanım:
+
+```bash
+bash MCP-STARTER-KIT/anydoc.sh rapor.docx -o rapor.md
+```
+
+Windows PowerShell:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\MCP-STARTER-KIT\anydoc.ps1 rapor.docx -o rapor.md
+```
+
+Agent Skill olarak:
+
+```bash
+npx skills add firecrawl/anydoc
+```
+
+Ayrıntılar: [`ANYDOC.md`](./ANYDOC.md)
+
 ## Hızlı başlangıç — VS Code
 
 1. Repoyu klonlayın ve VS Code ile açın.
@@ -21,6 +45,7 @@ Bu klasör, depoyu MCP istemcileriyle hemen kullanabilmek için hazırlanmış g
 4. Komut Paleti'nden `MCP: List Servers` çalıştırın.
 5. İlk çalıştırmada yalnızca güvendiğiniz MCP sunucularını onaylayın.
 6. GitHub MCP'yi başlatırsanız VS Code token ister; token hiçbir dosyaya yazılmaz.
+7. Dokümanları Markdown'a dönüştürmek için `anydoc.sh` veya `anydoc.ps1` wrapper'ını kullanabilirsiniz.
 
 VS Code yapılandırması: `/.vscode/mcp.json`
 
@@ -37,6 +62,7 @@ GitHub sunucusu taşınabilir dosyaya bilerek eklenmemiştir; kimlik doğrulama 
 - MCP sunucuları yerel makinede komut çalıştırabilir; yalnızca resmi veya doğruladığınız yayıncıları kullanın.
 - Tarayıcı otomasyonunda oturum/cookie verilerinin hassas olabileceğini unutmayın.
 - GitHub token kullanıyorsanız gereken en düşük yetki kapsamını verin.
+- Güvenilmeyen dokümanları anydoc ile işlerken güncel sürüm ve izole çalışma ortamı tercih edin.
 
 ## Kontrol
 
@@ -55,7 +81,8 @@ Kontrol betiği yalnızca yerel önkoşulları denetler; token okumaz ve ağ üz
 - Playwright ilk kullanımda gerekli tarayıcı bileşenlerini indirebilir.
 - Context7 anahtarsız temel kullanımda oran sınırına takılırsa API anahtarı ekleyebilirsiniz.
 - GitHub MCP 401/403 verirse token kapsamını ve repo erişimini kontrol edin.
+- anydoc taranmış/görüntü tabanlı PDF'lerde OCR olmadan içerik çıkaramayabilir; metin tabanlı PDF kullanın veya ayrı OCR akışı ekleyin.
 
 ## Neden bu set?
 
-Set; kod yazma, güncel dokümantasyon bulma, dosya/Git işlemleri, tarayıcı otomasyonu ve GitHub entegrasyonunu kapsarken mümkün olduğunca az ek bağımlılık ve sıfır hard-coded secret hedefler.
+Set; kod yazma, güncel dokümantasyon bulma, dosya/Git işlemleri, tarayıcı otomasyonu ve GitHub entegrasyonunu kapsarken mümkün olduğunca az ek bağımlılık ve sıfır hard-coded secret hedefler. anydoc ise bu akışa LLM/RAG için yararlı belge → Markdown dönüşüm katmanı ekler.
