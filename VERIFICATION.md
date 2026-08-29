@@ -2,6 +2,14 @@
 
 Bu depo bir kaynak kataloğudur; listelenen projeleri kuran, çalıştıran veya birlikte çalışabilirliklerini garanti eden bir yazılım paketi değildir.
 
+## 29 Ağustos 2026 — opsiyonel ajan entegrasyonları
+
+- `NulightJens/rocket-fuel-skill` ana GitHub deposu, MIT lisansı, resmi README kurulum biçimi ve Claude Code + Codex workflow amacı doğrulandı.
+- `diegosouzapw/OmniRoute` ana GitHub deposu, MIT lisansı, aktif `release/v3.8.51` dalı, Node engine gereksinimi, Codex yapılandırma rehberi ve HTTP MCP route'u kaynak ağacından doğrulandı.
+- Bu iki proje çekirdek 93 kaynaklık haritaya karıştırılmadı; `OPTIONAL-INTEGRATIONS.csv` içinde ayrı tutuldu. Böylece toplam referans depo sayısı 95 oldu.
+- Entegrasyon belgelerinde hard-coded API key/token eklenmedi ve çekirdek `.mcp.json` otomatik değiştirilmedi.
+- Rocket Fuel veya OmniRoute bu denetim sırasında yerel makinede kurulup uçtan uca çalıştırılmadı; dokümantasyon ve kaynak ağacı doğrulaması yapıldı.
+
 ## 24 Ağustos 2026 denetimi
 
 - Belge ve bağlantı yapısı incelendi.

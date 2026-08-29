@@ -37,6 +37,17 @@ npx skills add firecrawl/anydoc
 
 Ayrıntılar: [`ANYDOC.md`](./ANYDOC.md)
 
+## Opsiyonel ajan entegrasyonları
+
+İki ek proje doğrulanmış kaynak olarak eklendi ancak çekirdek MCP yapılandırmasına otomatik bağlanmadı:
+
+| Entegrasyon | Rol | Neden opsiyonel? |
+|---|---|---|
+| `NulightJens/rocket-fuel-skill` | Claude Code + Codex çoklu-ajan workflow'u | Üçüncü taraf skill; komut/dosya davranışlarını etkileyebilir |
+| `diegosouzapw/OmniRoute` | Çok sağlayıcılı AI gateway, OpenAI-uyumlu API, MCP/A2A | Ayrı servis ve sağlayıcı kimlik bilgileri gerektirebilir |
+
+Güvenli kurulum, Codex yapılandırması ve OmniRoute MCP endpoint'i: [`CODEX-OMNIROUTE.md`](./CODEX-OMNIROUTE.md)
+
 ## Hızlı başlangıç — VS Code
 
 1. Repoyu klonlayın ve VS Code ile açın.
@@ -46,6 +57,7 @@ Ayrıntılar: [`ANYDOC.md`](./ANYDOC.md)
 5. İlk çalıştırmada yalnızca güvendiğiniz MCP sunucularını onaylayın.
 6. GitHub MCP'yi başlatırsanız VS Code token ister; token hiçbir dosyaya yazılmaz.
 7. Dokümanları Markdown'a dönüştürmek için `anydoc.sh` veya `anydoc.ps1` wrapper'ını kullanabilirsiniz.
+8. Rocket Fuel veya OmniRoute gerekiyorsa önce opsiyonel entegrasyon rehberini okuyun; çekirdek MCP seti bunlar olmadan da çalışır.
 
 VS Code yapılandırması: `/.vscode/mcp.json`
 
@@ -55,14 +67,18 @@ Repo kökündeki `/.mcp.json`, `mcpServers` biçimini destekleyen MCP istemciler
 
 GitHub sunucusu taşınabilir dosyaya bilerek eklenmemiştir; kimlik doğrulama yöntemleri istemciye göre değişir ve erişim anahtarlarının repoya yazılması güvenli değildir.
 
+Rocket Fuel ve OmniRoute da taşınabilir `.mcp.json` içine otomatik eklenmez. Böylece üçüncü taraf skill/gateway seçimi kullanıcı kontrolünde kalır.
+
 ## Güvenlik notları
 
 - `filesystem` yalnızca bu repo/çalışma alanı ile sınırlandırılmıştır.
-- GitHub token, API anahtarı veya başka sırları JSON dosyalarına yazmayın.
+- GitHub token, API anahtarı veya başka sırları JSON/TOML dosyalarına yazmayın.
 - MCP sunucuları yerel makinede komut çalıştırabilir; yalnızca resmi veya doğruladığınız yayıncıları kullanın.
 - Tarayıcı otomasyonunda oturum/cookie verilerinin hassas olabileceğini unutmayın.
 - GitHub token kullanıyorsanız gereken en düşük yetki kapsamını verin.
 - Güvenilmeyen dokümanları anydoc ile işlerken güncel sürüm ve izole çalışma ortamı tercih edin.
+- Üçüncü taraf agent skill'lerini çalıştırmadan önce talimat ve scriptlerini inceleyin.
+- Yerel gateway portlarını kimlik doğrulama olmadan internete açmayın.
 
 ## Kontrol
 
@@ -82,7 +98,8 @@ Kontrol betiği yalnızca yerel önkoşulları denetler; token okumaz ve ağ üz
 - Context7 anahtarsız temel kullanımda oran sınırına takılırsa API anahtarı ekleyebilirsiniz.
 - GitHub MCP 401/403 verirse token kapsamını ve repo erişimini kontrol edin.
 - anydoc taranmış/görüntü tabanlı PDF'lerde OCR olmadan içerik çıkaramayabilir; metin tabanlı PDF kullanın veya ayrı OCR akışı ekleyin.
+- OmniRoute/Codex için güncel model ID'lerini OmniRoute'un kendi dokümantasyonundan doğrulayın; model adlarını bu repoda sabitlemeyin.
 
 ## Neden bu set?
 
-Set; kod yazma, güncel dokümantasyon bulma, dosya/Git işlemleri, tarayıcı otomasyonu ve GitHub entegrasyonunu kapsarken mümkün olduğunca az ek bağımlılık ve sıfır hard-coded secret hedefler. anydoc ise bu akışa LLM/RAG için yararlı belge → Markdown dönüşüm katmanı ekler.
+Set; kod yazma, güncel dokümantasyon bulma, dosya/Git işlemleri, tarayıcı otomasyonu ve GitHub entegrasyonunu kapsarken mümkün olduğunca az ek bağımlılık ve sıfır hard-coded secret hedefler. anydoc belge → Markdown katmanı ekler; Rocket Fuel ve OmniRoute ise isteyen kullanıcılar için çoklu-ajan ve gateway seçenekleri sağlar.
