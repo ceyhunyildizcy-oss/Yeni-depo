@@ -14,19 +14,24 @@ AI, ajanlar, yazılım geliştirme, trading ve web/mobil arayüz tasarımı içi
 
 ## İçerik durumu
 
-- 93 benzersiz açık kaynak depo
+- 93 küratörlü ana açık kaynak depo
+- 2 doğrulanmış opsiyonel ajan/gateway entegrasyonu
+- Toplam 95 benzersiz referans depo
 - 15 konu bölümü
 - 14 GitHub yıldız listesi
-- 93 kaynak, 01–13 numaralı listelerde konuya göre sınıflandırılmıştır
+- 93 ana kaynak, 01–13 numaralı listelerde konuya göre sınıflandırılmıştır
+- Opsiyonel Rocket Fuel ve OmniRoute entegrasyonları çekirdek yıldız listelerini/MCP yapılandırmasını otomatik değiştirmez
 - `14-Trending-Weekly` yalnızca haftalık insan incelemesiyle güncellenen dinamik listedir
 
 ## Ana belgeler
 
 - [MCP Starter Kit](./MCP-STARTER-KIT/README.md): VS Code ve diğer MCP istemcileri için kullanıma hazır, güvenli başlangıç yapılandırması
-- [GitHub Kaynak Haritası](./GITHUB-KAYNAK-HARITASI.md): tüm kaynaklar, teknoloji kombinasyonları ve güvenlik kuralları
+- [Codex + Rocket Fuel + OmniRoute](./MCP-STARTER-KIT/CODEX-OMNIROUTE.md): opsiyonel çoklu-ajan ve AI gateway entegrasyon rehberi
+- [GitHub Kaynak Haritası](./GITHUB-KAYNAK-HARITASI.md): 93 küratörlü ana kaynak, teknoloji kombinasyonları ve güvenlik kuralları
 - [Kullanım Rehberi](./KULLANIM-REHBERI.md): seçim, değerlendirme ve uygulama akışı
 - [Katkı Rehberi](./CONTRIBUTING.md): yeni kaynak önerme ve güncelleme ölçütleri
-- [Makine-okunur kaynak tablosu](./RESOURCES.csv): bölüm, depo ve yıldız listesi eşlemesi
+- [Makine-okunur ana kaynak tablosu](./RESOURCES.csv): 93 ana kaynağın bölüm ve yıldız listesi eşlemesi
+- [Opsiyonel entegrasyon tablosu](./OPTIONAL-INTEGRATIONS.csv): Rocket Fuel ve OmniRoute doğrulama kaydı
 - [Doğrulama Kaydı](./VERIFICATION.md): neyin doğrulandığı ve neyin doğrulanmadığı
 - [Güvenlik Politikası](./SECURITY.md): riskli veya ele geçirilmiş bağlantıları bildirme yolu
 
@@ -56,6 +61,8 @@ AI, ajanlar, yazılım geliştirme, trading ve web/mobil arayüz tasarımı içi
 
 - Tüm araçları birden kurmak yerine, tek hedef için en küçük uygun teknoloji setini seçin.
 - Bir projeye başlamadan önce lisans, bakım durumu, güvenlik duyuruları ve resmi dokümantasyonu doğrulayın.
+- Üçüncü taraf MCP/agent skill/gateway araçlarını çekirdek yapılandırmaya eklemeden önce komut ve scriptlerini inceleyin.
+- API anahtarlarını veya erişim tokenlarını repoya commit etmeyin.
 - Trading araçlarında gerçek para öncesinde backtest, forward test ve paper-trading kullanın.
 - Güvenlik araçlarını yalnızca sahibi olduğunuz veya test izni aldığınız sistemlerde çalıştırın.
 - GitHub Trending projelerini otomatik olarak güvenilir kabul etmeyin.
