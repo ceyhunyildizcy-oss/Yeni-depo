@@ -5,132 +5,143 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.provider.CalendarContract;
 import android.provider.Settings;
-import android.net.Uri;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;
 import android.widget.*;
 import android.text.InputType;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.IntentFilter;
 import org.json.JSONObject;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-/** Android native, offline-first approval queue. No silent actions. */
+/** Adaptive, offline-first dashboard. API settings do not imply OAuth connection. */
 public final class MainActivity extends Activity {
-    private LinearLayout main;
+    private final int navy=Color.rgb(21,31,55), mint=Color.rgb(33,160,139), gray=Color.rgb(104,118,137);
+    private final int paper=Color.rgb(244,247,250);
     private ProposalStore store;
-    private int navy=Color.rgb(20,30,54), coral=Color.rgb(235,100,88), muted=Color.rgb(108,120,142);
-    private final BroadcastReceiver refresh = new BroadcastReceiver() {
-        @Override public void onReceive(Context ctx,Intent intent) { render(); }
-    };
-    @Override public void onCreate(Bundle b) {
-        super.onCreate(b);
-        store=new ProposalStore(this);
-        handleShared(getIntent());
-        render();
-    }
-    @Override protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);setIntent(intent);handleShared(intent);render();
-    }
-    @Override protected void onResume(){ super.onResume(); render(); }
-    private void handleShared(Intent i) {
-        if(i!=null && Intent.ACTION_SEND.equals(i.getAction()) && "text/plain".equals(i.getType())){
-            String text=i.getStringExtra(Intent.EXTRA_TEXT);
-            if(text!=null && !text.trim().isEmpty()) store.add("Paylaşılan metin",text,System.currentTimeMillis());
-        }
-    }
-    private GradientDrawable bg(int color,int radius) {
-        GradientDrawable d=new GradientDrawable();d.setColor(color);d.setCornerRadius(dp(radius));return d;
-    }
-    private int dp(int n){return (int)(getResources().getDisplayMetrics().density*n);}
-    private TextView text(String value,int size,int color,boolean bold){
-        TextView t=new TextView(this);t.setText(value);t.setTextSize(size);t.setTextColor(color);
-        if(bold)t.setTypeface(null,Typeface.BOLD);return t;
-    }
-    private void pad(LinearLayout l,int size){l.setPadding(dp(size),dp(size),dp(size),dp(size));}
-    private void space(LinearLayout l,int n){View v=new View(this);l.addView(v,new LinearLayout.LayoutParams(1,dp(n)));}
-    private LinearLayout card(){
-        LinearLayout c=new LinearLayout(this);c.setOrientation(LinearLayout.VERTICAL);pad(c,16);
-        c.setBackground(bg(Color.WHITE,18));main.addView(c,new LinearLayout.LayoutParams(-1,-2));space(main,12);return c;
-    }
-    private Button button(String label,int background){
-        Button b=new Button(this);b.setText(label);b.setAllCaps(false);b.setTextColor(Color.WHITE);b.setTextSize(13);
-        b.setBackground(bg(background,12));return b;
-    }
-    private void render(){
+    private LinearLayout root,body;
+    private String tab="home";
+    private int dp(float n){return (int)(getResources().getDisplayMetrics().density*n+0.5f);}
+    @Override public void onCreate(Bundle b){super.onCreate(b);store=new ProposalStore(this);acceptShare(getIntent());draw();}
+    @Override protected void onNewIntent(Intent i){super.onNewIntent(i);setIntent(i);acceptShare(i);draw();}
+    @Override protected void onResume(){super.onResume();if(store!=null)draw();}
+    private void acceptShare(Intent i){if(i!=null&&Intent.ACTION_SEND.equals(i.getAction())&&"text/plain".equals(i.getType())){
+        String text=i.getStringExtra(Intent.EXTRA_TEXT);if(text!=null&&!text.trim().isEmpty())store.add("Paylaşım",text,System.currentTimeMillis());}}
+    private GradientDrawable shape(int color,int radius){GradientDrawable g=new GradientDrawable();g.setColor(color);g.setCornerRadius(dp(radius));return g;}
+    private TextView label(String s,int size,int color,boolean bold){
+        TextView t=new TextView(this);t.setText(s);t.setTextSize(size);t.setTextColor(color);
+        if(bold)t.setTypeface(Typeface.DEFAULT,Typeface.BOLD);return t;}
+    private void gap(LinearLayout l,int size){View v=new View(this);l.addView(v,new LinearLayout.LayoutParams(1,dp(size)));}
+    private LinearLayout column(){LinearLayout l=new LinearLayout(this);l.setOrientation(LinearLayout.VERTICAL);return l;}
+    private void padding(View v,int x,int y){v.setPadding(dp(x),dp(y),dp(x),dp(y));}
+    private Button button(String s,int bg){Button b=new Button(this);b.setText(s);b.setTextSize(13);b.setAllCaps(false);b.setTextColor(Color.WHITE);b.setBackground(shape(bg,12));return b;}
+    private LinearLayout card(){LinearLayout c=column();padding(c,16,16);c.setBackground(shape(Color.WHITE,18));body.addView(c,new LinearLayout.LayoutParams(-1,-2));gap(body,12);return c;}
+    private void draw(){
+        root=column();root.setBackgroundColor(paper);
+        // System-managed insets and screen width; no fixed display dimensions.
+        root.setFitsSystemWindows(true);
+        LinearLayout header=column();header.setBackground(shape(navy,0));padding(header,22,24);
+        header.addView(label("✦  AI ASİSTAN",14,Color.rgb(116,230,209),true));gap(header,7);
+        header.addView(label(tab.equals("home")?"Kontrol Merkezi":tab.equals("studio")?"Programlama Merkezi":"API & Bağlantılar",26,Color.WHITE,true));
+        gap(header,6);header.addView(label("Onaylı planlama  •  Yerel önizleme",12,Color.rgb(198,209,226),false));
+        root.addView(header);
         ScrollView scroll=new ScrollView(this);scroll.setFillViewport(true);
-        main=new LinearLayout(this);main.setOrientation(LinearLayout.VERTICAL);pad(main,18);
-        main.setBackgroundColor(Color.rgb(245,247,251));scroll.addView(main);setContentView(scroll);
-        main.addView(text("AI ASİSTAN",13,coral,true));
-        space(main,5);main.addView(text("Onaylı Gün Planım",27,navy,true));space(main,5);
-        main.addView(text("Mesajlardan öneri oluşturur. Onayın olmadan takvime eklemez.",14,muted,false));space(main,18);
-        LinearLayout setup=card();
-        setup.addView(text("Kaynakları bağla",18,navy,true));space(setup,7);
-        setup.addView(text("WhatsApp, Gmail, Outlook ve SMS yalnızca yeni bildirimleri üzerinden izlenir. Geçmiş mesajlar okunmaz.",13,muted,false));space(setup,12);
-        Button notify=button("Bildirim erişimini aç",navy);
-        notify.setOnClickListener(v->startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)));
-        setup.addView(notify);space(setup,7);
-        Button share=button("Elle görev önerisi ekle",coral);share.setOnClickListener(v->promptManual());setup.addView(share);
-        List<JSONObject> proposals=store.all();
-        int pending=0;for(JSONObject p:proposals)if("PENDING".equals(p.optString("state")))pending++;
-        main.addView(text("Onay bekleyenler ("+pending+")",20,navy,true));space(main,10);
-        if(proposals.isEmpty()) {
-            LinearLayout empty=card();empty.addView(text("Henüz görev önerisi yok.",15,navy,true));
-            empty.addView(text("İzin verdiğin bildirimlerden veya paylaşılan metinden öneriler burada görünecek.",13,muted,false));
-        }
-        for(JSONObject proposal:proposals) {
-            LinearLayout c=card();
-            String status=proposal.optString("state");
-            c.addView(text(proposal.optString("source")+"  ·  "+status,12,coral,true));space(c,6);
-            c.addView(text(proposal.optString("text"),15,navy,true));space(c,6);
-            c.addView(text(DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT).format(new Date(proposal.optLong("time"))),12,muted,false));
-            if("PENDING".equals(status)) {
-                space(c,12);LinearLayout actions=new LinearLayout(this);actions.setOrientation(LinearLayout.HORIZONTAL);
-                Button approve=button("Onayla / Takvim",coral);Button reject=button("Reddet",navy);
-                actions.addView(approve,new LinearLayout.LayoutParams(0,dp(48),2f));
-                LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(0,dp(48),1f);lp.leftMargin=dp(8);
-                actions.addView(reject,lp);c.addView(actions);
-                String id=proposal.optString("id");
-                approve.setOnClickListener(v->confirmAndOpenCalendar(id,proposal.optString("text")));
-                reject.setOnClickListener(v->{store.setStatus(id,"REJECTED");render();});
+        body=column();padding(body,16,18);scroll.addView(body);
+        root.addView(scroll,new LinearLayout.LayoutParams(-1,0,1));
+        LinearLayout nav=new LinearLayout(this);nav.setBackgroundColor(Color.WHITE);padding(nav,8,7);
+        navItem(nav,"⌂  Ana Sayfa","home");navItem(nav,"▦  Merkez","studio");navItem(nav,"⚙  API","settings");
+        root.addView(nav);setContentView(root);
+        if(tab.equals("home"))home();else if(tab.equals("studio"))studio();else settings();
+    }
+    private void navItem(LinearLayout bar,String title,String target){
+        TextView t=label(title,13,tab.equals(target)?mint:gray,tab.equals(target));
+        t.setGravity(android.view.Gravity.CENTER);padding(t,3,13);
+        bar.addView(t,new LinearLayout.LayoutParams(0,-2,1));t.setOnClickListener(v->{tab=target;draw();});
+    }
+    private void home(){
+        List<JSONObject> list=store.all();int pending=0;
+        for(JSONObject p:list)if("PENDING".equals(p.optString("state")))pending++;
+        LinearLayout summary=card();summary.addView(label("BUGÜNÜN ÖZETİ",11,mint,true));gap(summary,9);
+        summary.addView(label(pending+" onay bekliyor",24,navy,true));gap(summary,5);
+        summary.addView(label("Önerileri incele; hiçbir işlem kendiliğinden uygulanmaz.",13,gray,false));
+        LinearLayout actions=card();actions.addView(label("Hızlı İşlemler",17,navy,true));gap(actions,10);
+        Button add=button("+  Görev ekle",mint);actions.addView(add);add.setOnClickListener(v->manual());gap(actions,8);
+        Button listener=button("Bildirim erişimini yönet",navy);actions.addView(listener);
+        listener.setOnClickListener(v->startActivity(new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)));
+        body.addView(label("GÖREV ÖNERİLERİ",13,gray,true));gap(body,12);
+        if(list.isEmpty()){LinearLayout empty=card();empty.addView(label("Henüz öneri yok",17,navy,true));gap(empty,6);
+            empty.addView(label("Yeni bildirimler veya paylaştığın metinlerden öneriler burada gösterilir.",13,gray,false));}
+        for(JSONObject p:list){
+            LinearLayout c=card();String state=p.optString("state"),id=p.optString("id");
+            c.addView(label(p.optString("source")+"   •   "+state,12,mint,true));gap(c,8);
+            c.addView(label(p.optString("text"),15,navy,true));
+            if("PENDING".equals(state)){
+                gap(c,12);LinearLayout row=new LinearLayout(this);
+                Button yes=button("Onayla",mint),no=button("Reddet",navy);
+                row.addView(yes,new LinearLayout.LayoutParams(0,dp(48),1));LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(0,dp(48),1);
+                lp.leftMargin=dp(8);row.addView(no,lp);c.addView(row);
+                yes.setOnClickListener(v->calendarConfirm(id,p.optString("text")));
+                no.setOnClickListener(v->{store.setStatus(id,"REJECTED");draw();});
             }
         }
-        space(main,6);
-        Button clear=button("Yerel kayıtları temizle",navy);clear.setOnClickListener(v->
-            new android.app.AlertDialog.Builder(this).setTitle("Tüm kayıtlar silinsin mi?")
-            .setMessage("Onaylanmış ve bekleyen öneriler cihazdan silinir.")
-            .setNegativeButton("İptal",null).setPositiveButton("Sil",(d,w)->{store.clear();render();}).show());
-        main.addView(clear);
-        space(main,12);main.addView(text("Önizleme sürümü • Veriler cihazda • Otomatik gönderim yok",12,muted,false));
     }
-    private void confirmAndOpenCalendar(String id,String summary) {
-        new android.app.AlertDialog.Builder(this)
-        .setTitle("Takvim önerisini onayla")
-        .setMessage("Bu metin takvim uygulamasına taslak olarak aktarılacak. Tarih, saat ve kaydı takvimde sen onaylayacaksın:\n\n"+summary)
-        .setNegativeButton("İptal",null)
-        .setPositiveButton("Devam",(dialog,which)->{
-            Intent event=new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.Events.TITLE,summary.length()>90?summary.substring(0,90):summary);
-            try {
-                startActivity(event);
-                // Approved means the calendar editor was opened, NOT that the event was saved.
-                store.setStatus(id,"APPROVED");render();
-            } catch (Exception ex) {
-                new android.app.AlertDialog.Builder(this).setMessage("Takvim uygulaması bulunamadı.").setPositiveButton("Tamam",null).show();
-            }
-        }).show();
+    private void studio(){
+        LinearLayout c=card();c.addView(label("Otomasyon Politikası",18,navy,true));gap(c,8);
+        c.addView(label("Güvenli mod: ONAY ZORUNLU",14,mint,true));gap(c,6);
+        c.addView(label("Kaynak → Görev önerisi → Kullanıcı onayı → Takvim taslağı",13,gray,false));
+        LinearLayout source=card();source.addView(label("Veri Kaynakları",18,navy,true));gap(source,9);
+        for(String item:new String[]{"◉ WhatsApp bildirimleri","✉ Gmail bildirimleri","✉ Outlook bildirimleri","▤ SMS uygulaması bildirimleri"})
+            {source.addView(label(item,14,navy,false));gap(source,8);}
+        source.addView(label("Yalnızca Android'in gösterdiği yeni bildirimler; geçmişe erişim yok.",12,gray,false));
+        LinearLayout battery=card();battery.addView(label("Pil & Performans",18,navy,true));gap(battery,8);
+        battery.addView(label("• Sürekli tarama ve arka plan döngüsü yok\n• Bildirim geldikçe işlem\n• Ağ üzerinden AI çağrısı yok\n• Ağır animasyon ve sürekli konum takibi yok",14,gray,false));
+        LinearLayout tools=card();tools.addView(label("Veri Yönetimi",18,navy,true));gap(tools,9);
+        Button wipe=button("Yerel görev kayıtlarını sil",navy);tools.addView(wipe);
+        wipe.setOnClickListener(v->new android.app.AlertDialog.Builder(this).setTitle("Kayıtları sil?")
+            .setMessage("Bu cihazdaki tüm öneriler silinir.").setNegativeButton("Vazgeç",null)
+            .setPositiveButton("Sil",(d,w)->{store.clear();draw();}).show());
     }
-    private void promptManual(){
-        EditText input=new EditText(this);input.setMinLines(3);input.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_FLAG_MULTI_LINE);
-        input.setHint("Örn: 18 Kasım 14:30 müşteri toplantısı");input.setPadding(dp(20),dp(10),dp(20),dp(10));
-        new android.app.AlertDialog.Builder(this).setTitle("Görev önerisi ekle").setView(input)
-        .setNegativeButton("İptal",null).setPositiveButton("Ekle",(d,w)->{
-            String body=input.getText().toString().trim();if(!body.isEmpty()){store.add("Elle girildi",body,System.currentTimeMillis());render();}
-        }).show();
+    private void settings(){
+        LinearLayout intro=card();intro.addView(label("Google API Yapılandırması",18,navy,true));gap(intro,8);
+        intro.addView(label("Google Cloud Console üzerinden OAuth istemci kimliğini oluştur. İstemci kimliği tek başına Gmail/Calendar erişimini başlatmaz; OAuth bağlantısı sonraki sürümde eklenecek.",13,gray,false));
+        setting("Google OAuth Client ID","google_client_id",false);
+        setting("Google API Key (isteğe bağlı)","google_api_key",true);
+        setting("AI Sağlayıcı API Key (isteğe bağlı)","ai_api_key",true);
+        LinearLayout info=card();info.addView(label("Güvenlik",17,navy,true));gap(info,7);
+        info.addView(label("Bu değerler Android Keystore ile şifrelenerek cihazda saklanır. Bu önizleme anahtarları henüz API isteği için kullanmaz. Google OAuth Client Secret'ı mobil uygulamaya girmeyin.",13,gray,false));
+    }
+    private void setting(String name,String field,boolean secret){
+        LinearLayout c=card();c.addView(label(name,15,navy,true));gap(c,8);
+        EditText e=new EditText(this);e.setSingleLine(true);e.setTextSize(13);
+        e.setHint(secret?"••••••••••":"İstemci kimliğini gir");
+        e.setInputType(secret?(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD):InputType.TYPE_CLASS_TEXT);
+        // Do not display stored secrets in cleartext.
+        if(!secret)try{e.setText(new SecureSettings(this).get(field));}catch(Exception ignored){}
+        c.addView(e);gap(c,9);
+        Button save=button("Güvenli kaydet",mint);c.addView(save);
+        save.setOnClickListener(v->{
+            try{new SecureSettings(this).put(field,e.getText().toString().trim());
+                e.setText("");Toast.makeText(this,"Cihazda kaydedildi",Toast.LENGTH_SHORT).show();}
+            catch(Exception ex){Toast.makeText(this,"Güvenli kayıt başarısız",Toast.LENGTH_LONG).show();}
+        });
+    }
+    private void calendarConfirm(String id,String text){
+        new android.app.AlertDialog.Builder(this).setTitle("Takvim taslağı")
+            .setMessage("Takvim uygulaması açılacak. Tarih ve saati orada düzenleyip kaydı ayrıca onaylamalısın.\n\n"+text)
+            .setNegativeButton("Vazgeç",null).setPositiveButton("Devam",(d,w)->{
+                Intent intent=new Intent(Intent.ACTION_INSERT).setData(CalendarContract.Events.CONTENT_URI)
+                    .putExtra(CalendarContract.Events.TITLE,text.length()>90?text.substring(0,90):text);
+                try{startActivity(intent);store.setStatus(id,"APPROVED");draw();}
+                catch(Exception ex){Toast.makeText(this,"Takvim uygulaması bulunamadı",Toast.LENGTH_LONG).show();}
+            }).show();
+    }
+    private void manual(){
+        EditText e=new EditText(this);e.setMinLines(3);e.setHint("Örn: Perşembe 14:00 toplantı");
+        padding(e,16,12);
+        new android.app.AlertDialog.Builder(this).setTitle("Yeni görev önerisi").setView(e)
+            .setNegativeButton("İptal",null).setPositiveButton("Ekle",(d,w)->{
+                String s=e.getText().toString().trim();if(!s.isEmpty()){store.add("Elle girildi",s,System.currentTimeMillis());draw();}
+            }).show();
     }
 }
