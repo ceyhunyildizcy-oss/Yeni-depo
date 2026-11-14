@@ -41,7 +41,9 @@ def extract_task(item: SourceItem) -> TaskSuggestion | None:
     if not text or not any(trigger in text.casefold() for trigger in TRIGGERS):
         return None
     date = DATE_RE.search(text)
-    time = TIME_RE.search(text)
+    # Tarih bölümünü saat aramasından çıkar: 18.11 tarihini 18:11 sanma.
+    time_text = (text[:date.start()] + " " + text[date.end():]) if date else text
+    time = TIME_RE.search(time_text)
     due = None
     if date:
         day, month, year = (int(date.group(1)), int(date.group(2)),
