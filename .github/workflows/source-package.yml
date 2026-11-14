@@ -1,0 +1,21 @@
+name: Package AI Asistan source
+on:
+  workflow_dispatch:
+  push:
+    branches: [feature/ai-asistan-planlayici-v1]
+    paths: ['.github/workflows/source-package.yml']
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package Android source and planner
+        run: |
+          mkdir -p dist
+          zip -r dist/AI-Asistan-HyperOS-Kaynak-v1.1.zip ai-asistan-planlayici .github/workflows/android-apk.yml -x '*/build/*' '*/.gradle/*'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AI-Asistan-HyperOS-Kaynak-v1.1
+          path: dist/AI-Asistan-HyperOS-Kaynak-v1.1.zip
